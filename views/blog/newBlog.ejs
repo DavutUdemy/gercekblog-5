@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" 
+  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="/">Main</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+       
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+
+          <%if(!currentUser){ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/signin">Sign In</a>
+            </li>
+          <% } else {%>
+            <li class="nav-item">
+              <a id = "createdBy" class="nav-link" href="/admin"><%=currentUser.username %></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/signout">Sign Out</a>
+              </li>
+
+          <%  } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<style>
+  body{
+    background-color: green;
+  }
+</style>
+
+<div class="container">
+   
+
+    <form style="margin-top:100px">
+        <h1 style="text-align:center;">Add New Blog </h1>
+
+        <div class="form-group">
+          <label for="blogTitle">Blog Title</label>
+          <input type="text" class="form-control" id="blogTitle" placeholder="Blog Title">
+        </div>
+        <div class="form-group">
+          <label for="blogSubtitle">Blog  Subtitle</label>
+          <input type="text" class="form-control" id="blogSubtitle" placeholder="Blog  Subtitle">
+        </div>
+        <div class="form-group">
+          <label for="blogSubtitle">Blog  Video</label>
+          <input type="text" class="form-control" id="blogVideo" placeholder="Blog  Video Link">
+        </div>
+        <div class="form-group">
+          <label for="comImage">Blog Commercial Image URL</label>
+          <input type="text" class="form-control" id="comImage" placeholder="Blog Commercial Image URL">
+        </div>
+        <textarea name="editor1" id="myEditor"></textarea>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js
+
+
+
+        "></script>
+
+        <script>
+            $(document).ready(function(){
+    $("#myButton").click(function(){
+      //  alert("Testing");
+      var createdBy = $('#createdBy').val()
+      var blogTitle = $("#blogTitle").val();
+      var blogSubTitle = $("#blogSubtitle").val();
+      var comImage = $("#comImage").val();
+      var video = $('#blogVideo').val();
+      
+      //var createdBy = $()
+      var blog = CKEDITOR.instances.myEditor.getData();
+      var data = {
+        createdBy:createdBy,
+        blogTitle:blogTitle,
+        blogSubTitle:blogSubTitle,
+        comImage:comImage,
+        video:video,
+        blog:blog
+      }
+      // console.log(blogTitle + " --- " + blogSubTitle + " --- " + comImage + " --- " + blog);
+      $.post('addNewBlog', {data:data})
+      .then(function(addedBlog){
+        console.log(addedBlog);
+        
+        $("#blogTitle").val("");
+        $("#blogSubtitle").val("");
+        $("#comImage").val();
+
+        CKEDITOR.instances.myEditor.setData("YOUR PREVIOUS BLOG HAS BEEN SAVED... <hr> ADD NEW BLOG...");
+      })
+    });
+  });
+</script>
+
+        </script>        
+
+
+        
+    </form>
+    <button id="myButton" style="margin-top:20px;" type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+
+<script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+
+<script>
+  CKEDITOR.replace( 'editor1' );
+</script>
+
+<%- include ('../partials/footer') %>

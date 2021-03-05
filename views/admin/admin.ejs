@@ -1,0 +1,58 @@
+<%-include('../partials/header') %>
+<header class="masthead" style="background-image: url('https://listelist.com/wp-content/uploads/2019/10/recep-ivedik-6-ozel-recep-ivedikten-nefret-etmemize-ragmen-izlememizin-9-nedeni.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Admin DashBoard</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <% adminActions.forEach((action)=>
+    {%>
+     
+ 
+    <div class="row">
+      <div class="col-lg-4  mx-auto">
+        <button id ="<%=action.actionId%>" onclick ="catchID(this.id)"type="button" class="btn btn-outline-primary btn-block"><%=action.displayName%></button>
+
+      </div>
+      <div class="col-lg-8 mx-auto"></div>
+<script>
+function catchID(clicked_id){
+if(clicked_id ==1){
+    window.location.href = 'ChangeHomeImage';return false;
+}
+ else if(clicked_id==2){  window.location.href ='ChangeAboutImage';return false;
+}
+ else if(clicked_id==3){ window.location.href ='ChangeAboutText';return false;
+}
+   
+  else if(clicked_id==4){  window.location.href = 'addNewBlog';return false;}
+
+ else  if(clicked_id==5){
+  window.location.href = 'listAllBlogs';return false;
+  
+}
+
+}
+
+</script>
+
+
+        
+      </div>
+    <% });%>
+  </div>
+
+
+
+
+
+
+<%-include('../partials/footer') %>

@@ -1,0 +1,58 @@
+<%- include ('./partials/header') %>
+<!-- Page Header -->
+ <header class="masthead" style="background-image: url('https://www.catsacademyboston.com/ugc-1/uploads/pageblocks/5965/22e64b11fef2cd1d06527b0b5256bfe9.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>CATS ACADEMY BOSTON</h1>
+            <span class="subheading">A Blog Theme by CATS EDUCATION</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <% foundBlog.forEach(function(blog){ %>
+    <div class="row">
+      <div class="col-lg-3 mx-auto">
+        <img class="img-thumbnail" src="<%= blog.comImage %>" alt="<%=blog.title%>">
+      </div>
+      <div class="col-lg-8 mx-auto">
+        <div class="post-preview">
+          <a href="/blogs/<%=blog._id%>">
+            <h2 class="post-title">
+             <%= blog.title %>
+            </h2>
+            <h3 class="post-subtitle">
+              <%= blog.subTitle %>
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">
+              <%=blog.createdBy %> 
+            </a>
+            <%= blog.date %></p>
+        </div>
+        <hr>
+      </div>
+      <%if(currentUser){%>
+      <div class="col-lg-1 mx-auto">
+        <a style="margin-top:20px;" href="/blogs/<%=blog._id%>/edit" class="btn btn-outline-warning">Edit</a>
+        <form action="/blogs/<%=blog._id%>?DELETE" method="POST" >
+          <button style="margin-top:20px;" class="btn btn-outline-danger">Delete</button>
+        </form>
+      </div>
+      <%  } %>
+    </div>
+    <% }) %>
+     <!-- Pager -->
+     <div class="clearfix">
+      <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+    </div>
+  </div>
+  <%- include ('./partials/footer') %>
+
