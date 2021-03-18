@@ -90,7 +90,7 @@ app.use(blogRoutes);
 app.use(adminRoutes)
 
 
-const PORT  = 2000
+const PORT  = process.env.PORT||2000
 const server = app.listen(PORT, function(err){
     if(err){
         console.log(err);
