@@ -45,10 +45,10 @@ let adminActions = [{
 router.get('/signin',(req,res)=>{
     res.render('admin/signin')
 })
-router.get('/signup',isLoggedIn,(req,res)=>{
+router.get('/signup',(req,res)=>{
     res.render('admin/signup')
 })
-router.post('/signup', isLoggedIn,function(req, res){
+router.post('/signup', function(req, res){
     // console.log(req.body)
     var newUser = new User({username:req.body.username});
     User.register(newUser, req.body.password, function(err, user){

@@ -10,7 +10,7 @@ const indexRoutes = require('./routes/indexRoutes.js')
 const adminRoutes = require('./routes/adminRoutes')
 const passport = require('passport')
 const blogRoutes = require('./routes/blogRoutes')
-const connection_url ='mongodb+srv://blog:blog123@cluster0.h02kl.mongodb.net/Blog?retryWrites=true&w=majority'
+const connection_url ='mongodb+srv://blog:blog123@cluster0.h02kl.mongodb.net/Solomans?retryWrites=true&w=majority'
 app.use(express.json())
 app.use(bodyparser.urlencoded({ extended: true }))
 mongoose.connect(connection_url, {
@@ -90,8 +90,8 @@ app.use(blogRoutes);
 app.use(adminRoutes)
 
 
-  
-const server = app.listen(5000, function(err){
+const PORT  = process|env
+const server = app.listen(PORT, function(err){
     if(err){
         console.log(err);
     }
